@@ -1,0 +1,24 @@
+
+/api/v1.0/access-token/b2b
+/api/v1.0/access-token/refresh
+/api/v1.0/balance-inquiry
+/api/v1.0/account-inquiry-internal
+/api/v1.0/account-inquiry-external
+/api/v1.0/transfer-intrabank
+/api/v1.0/transfer-interbank
+/api/v1.0/transfer-status
+/api/v1.0/transaction-history-list
+/api/v1.0/transaction-history-detail
+/api/v1.0/debit/payment-host-to-host
+/api/v1.0/debit/inquiry
+/api/v1.0/debit/status
+/api/v1.0/utilities/signature-auth
+/api/v1.0/utilities/signature-service
+
+
+http convert to:
+req := map[string]interface{}
+req["header"]: map[string]string{}
+req["body"]: byte
+req["path"]: string
+

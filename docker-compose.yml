@@ -1,0 +1,253 @@
+# version: "3.9"
+
+services:
+  redis:
+    image: redis
+    restart: always
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker/redis/init.redis:/data/init.redis
+      - ./docker/redis/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+    entrypoint: ["/usr/local/bin/docker-entrypoint.sh"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - snap-aspi
+
+  gateway:
+    build: ./gateway
+    image: gateway
+    container_name: gateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./gateway/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+auth:
+    build: ./snap_auth
+    image: snap_auth
+    container_name: snap_auth
+    restart: unless-stopped
+    ports:
+      - "30051:30051"
+    volumes:
+      - ./auth/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+signature:
+    build: ./snap_signature
+    image: snap_signature
+    container_name: snap_signature
+    restart: unless-stopped
+    ports:
+      - "30052:30052"
+    volumes:
+      - ./signature/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+backend:
+    build: ./snap_backend
+    image: snap_backend
+    container_name: snap_backend
+    restart: unless-stopped
+    ports:
+      - "30053:30053"
+    volumes:
+      - ./backend/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+  inquiry:
+    build: ./snap_inquiry
+    image: inquiry
+    container_name: inquiry
+    restart: unless-stopped
+    ports:
+      - "30054:30054"
+    volumes:
+      - ./inquiry/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+history:
+    build: ./snap_history
+    image: history
+    container_name: history
+    restart: unless-stopped
+    ports:
+      - "30055:30055"
+    volumes:
+      - ./inquiry/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+transfer:
+    build: ./snap_transfer
+    image: transfer
+    container_name: transfer
+    restart: unless-stopped
+    ports:
+      - "30056:30056"
+    volumes:
+      - ./inquiry/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+inquiryv2:
+    build: ./snap_inquiryv2
+    image: v2
+    container_name: inquiryv2
+    restart: unless-stopped
+    ports:
+      - "30057:30057"
+    volumes:
+      - ./inquiryv2/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+historyv2:
+    build: ./snap_historyv2
+    image: historyv2
+    container_name: historyv2
+    restart: unless-stopped
+    ports:
+      - "30058:30058"
+    volumes:
+      - ./historyv2/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+transferv2:
+    build: ./snap_transferv2
+    image: transferv2
+    container_name: transferv2
+    restart: unless-stopped
+    ports:
+      - "30059:30059"
+    volumes:
+      - ./transferv2/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+ratelimiter:
+    build: ./snap_ratelimiter
+    image: ratelimiter
+    container_name: ratelimiter
+    restart: unless-stopped
+    ports:
+      - "30061:30061"
+    volumes:
+      - ./ratelimiter/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+storage:
+    build: ./snap_storage
+    image: storage
+    container_name: storage
+    restart: unless-stopped
+    ports:
+      - "30062:30062"
+    volumes:
+      - ./storage/config.json:/app/config.json
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "256m"
+    networks:
+      - snap-aspi
+
+networks:
+  snap-aspi:
+    driver: bridge
+    name: snap-aspi

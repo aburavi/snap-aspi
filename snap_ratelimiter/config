@@ -1,0 +1,11 @@
+# .env file
+# This is a config file for apinode service
+
+SITE_TITLE=RATELIMITER-API
+
+HOST=localhost
+TYPE=sandbox
+REDIS_SERVER=redis.snap-aspi
+REDIS_PORT=6379
+REDISPASS=""
+PORT_RATELIMITER=30061

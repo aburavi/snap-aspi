@@ -1,0 +1,12 @@
+# .env file
+# This is a config file for apinode service
+
+SITE_TITLE=STORAGE-API
+
+HOST=localhost
+PORT=30062
+TYPE=sandbox
+REDIS_SERVER=redis.snap-aspi
+REDISPASS=
+REDIS_PORT=6379
+

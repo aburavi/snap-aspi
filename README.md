@@ -1,2 +1,2 @@
-# snap-aspi
-OpenAPI SNAP ASPI version draft
+# snap_aspi
+Open API SNAP-ASPI Version 1.0.0

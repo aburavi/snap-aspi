@@ -1,0 +1,1 @@
+# snap_storage plugin

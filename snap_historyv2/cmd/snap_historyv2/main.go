@@ -1,0 +1,37 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"net"
+
+	"github.com/aburavi/snaputils/proto/history"
+
+	"github.com/spf13/viper"
+	grpc "google.golang.org/grpc"
+)
+
+func main() {
+	viper.SetConfigName("config")
+	viper.SetConfigType("env")
+	viper.AddConfigPath(".")
+	viper.AutomaticEnv()
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(err)
+	}
+
+	//Host := viper.GetString("HOST")
+	Port := viper.GetString("PORT")
+
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", Port))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+		panic(err)
+	}
+
+	grpcServer := grpc.NewServer()
+	history.RegisterHistoryServer(grpcServer, &HistoryServer{})
+
+	grpcServer.Serve(lis)
+}
