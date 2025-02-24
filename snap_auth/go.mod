@@ -3,7 +3,7 @@ module snap_auth
 go 1.23.2
 
 require (
-	github.com/aburavi/snaputils v0.0.0-20250223043631-fb8b017cd408
+	github.com/aburavi/snaputils v0.0.0-20250223233133-5f2dcf0473d4
 	github.com/spf13/viper v1.19.0
 	google.golang.org/grpc v1.70.0
 )
