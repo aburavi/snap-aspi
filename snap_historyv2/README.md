@@ -1,3 +1,3 @@
-# snapv2-history plugin
+# snap-historyv2 plugin
 
 

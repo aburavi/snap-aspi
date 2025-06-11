@@ -1,6 +1,6 @@
 module snap_auth
 
-go 1.23.2
+go 1.24
 
 require (
 	github.com/aburavi/snaputils v0.0.0-20250223233133-5f2dcf0473d4

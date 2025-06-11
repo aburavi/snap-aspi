@@ -8,7 +8,7 @@ import (
 	"github.com/aburavi/snaputils/async"
 	"github.com/aburavi/snaputils/proto/transfer"
 
-	"snapv2_transfer/trxgw_api"
+	"snap_transferv2/trxgw_api"
 
 	grpc "google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"

@@ -1,3 +1,3 @@
-# snapv2-inquiry plugin
+# snap-inquiryv2 plugin
 
 

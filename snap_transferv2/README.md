@@ -1,3 +1,3 @@
-# snapv2-transfer plugin
+# snap-transferv2 plugin
 
 

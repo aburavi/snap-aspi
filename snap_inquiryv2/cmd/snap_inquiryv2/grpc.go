@@ -7,7 +7,7 @@ import (
 
 	"github.com/aburavi/snaputils/proto/inquiry"
 
-	"snapv2_inquiry/trxgw_api"
+	"snap_inquiryv2/trxgw_api"
 
 	"github.com/aburavi/snaputils/async"
 

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"snapv2_history/trxgw_api"
+	"snap_historyv2/trxgw_api"
 
 	"github.com/aburavi/snaputils/async"
 	"github.com/aburavi/snaputils/proto/history"
