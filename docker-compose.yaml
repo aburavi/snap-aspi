@@ -5,9 +5,9 @@ services:
     container_name: keycloak_web
     environment:
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql:password://postgres:5432/keycloak
-      KC_DB_USERNAME: custompbx
-      KC_DB_PASSWORD: custompbx
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: password
       KC_HOSTNAME_STRICT: "false"
       KC_HOSTNAME_STRICT_HTTPS: "false"
       KC_LOG_LEVEL: info
