@@ -55,7 +55,7 @@ func main() {
 	PortHistory := viper.GetString("PORTHISTORY")
 	HostTransfer := viper.GetString("HOSTTRANSFER")
 	PortTransfer := viper.GetString("PORTTRANSFER")
-	HostInquiryV2 := viper.GetString("HOSTV2INQURIY")
+	HostInquiryV2 := viper.GetString("HOSTV2INQUIRY")
 	PortInquiryV2 := viper.GetString("PORTV2INQUIRY")
 	HostHistoryV2 := viper.GetString("HOSTV2HISTORY")
 	PortHistoryV2 := viper.GetString("PORTV2HISTORY")
