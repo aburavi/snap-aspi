@@ -83,7 +83,7 @@ services:
     container_name: snap_auth
     restart: unless-stopped
     ports:
-      - "30051:30051"
+      - "30051:8080"
     depends_on:
       - redis
     deploy:
@@ -100,7 +100,7 @@ services:
     container_name: snap_signature
     restart: unless-stopped
     ports:
-      - "30052:30052"
+      - "30052:8080"
     depends_on:
       - redis
     deploy:
@@ -117,7 +117,7 @@ services:
     container_name: snap_backend
     restart: unless-stopped
     ports:
-      - "30053:30053"
+      - "30053:8080"
     depends_on:
       - redis
     deploy:
@@ -134,7 +134,7 @@ services:
     container_name: inquiry
     restart: unless-stopped
     ports:
-      - "30054:30054"
+      - "30054:8080"
     depends_on:
       - redis
     deploy:
@@ -151,7 +151,7 @@ services:
     container_name: history
     restart: unless-stopped
     ports:
-      - "30055:30055"
+      - "30055:8080"
     depends_on:
       - redis
     deploy:
@@ -168,7 +168,7 @@ services:
     container_name: transfer
     restart: unless-stopped
     ports:
-      - "30056:30056"
+      - "30056:8080"
     depends_on:
       - redis
     deploy:
@@ -185,7 +185,7 @@ services:
     container_name: inquiryv2
     restart: unless-stopped
     ports:
-      - "30057:30057"
+      - "30057:8080"
     depends_on:
       - redis
     deploy:
@@ -202,7 +202,7 @@ services:
     container_name: historyv2
     restart: unless-stopped
     ports:
-      - "30058:30058"
+      - "30058:8080"
     depends_on:
       - redis
     deploy:
@@ -219,7 +219,7 @@ services:
     container_name: transferv2
     restart: unless-stopped
     ports:
-      - "30059:30059"
+      - "30059:8080"
     depends_on:
       - redis
     deploy:
@@ -236,7 +236,7 @@ services:
     container_name: ratelimiter
     restart: unless-stopped
     ports:
-      - "30061:30061"
+      - "30061:8080"
     depends_on:
       - redis
     deploy:
@@ -253,7 +253,7 @@ services:
     container_name: storage
     restart: unless-stopped
     ports:
-      - "30062:30062"
+      - "30062:8080"
     depends_on:
       - redis
     deploy:
