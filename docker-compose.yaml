@@ -131,7 +131,7 @@ services:
   snap_inquiry:
     build: ./snap_inquiry
     image: inquiry
-    container_name: inquiry
+    container_name: snap_inquiry
     restart: unless-stopped
     ports:
       - "30054:8080"
@@ -148,7 +148,7 @@ services:
   snap_history:
     build: ./snap_history
     image: history
-    container_name: history
+    container_name: snap_history
     restart: unless-stopped
     ports:
       - "30055:8080"
@@ -165,7 +165,7 @@ services:
   snap_transfer:
     build: ./snap_transfer
     image: transfer
-    container_name: transfer
+    container_name: snap_transfer
     restart: unless-stopped
     ports:
       - "30056:8080"
@@ -182,7 +182,7 @@ services:
   snap_inquiryv2:
     build: ./snap_inquiryv2
     image: v2
-    container_name: inquiryv2
+    container_name: snap_inquiryv2
     restart: unless-stopped
     ports:
       - "30057:8080"
@@ -199,7 +199,7 @@ services:
   snap_historyv2:
     build: ./snap_historyv2
     image: historyv2
-    container_name: historyv2
+    container_name: snap_historyv2
     restart: unless-stopped
     ports:
       - "30058:8080"
@@ -216,7 +216,7 @@ services:
   snap_transferv2:
     build: ./snap_transferv2
     image: transferv2
-    container_name: transferv2
+    container_name: snap_transferv2
     restart: unless-stopped
     ports:
       - "30059:8080"
@@ -233,7 +233,7 @@ services:
   snap_ratelimiter:
     build: ./snap_ratelimiter
     image: ratelimiter
-    container_name: ratelimiter
+    container_name: snap_ratelimiter
     restart: unless-stopped
     ports:
       - "30061:8080"
@@ -250,7 +250,7 @@ services:
   snap_storage:
     build: ./snap_storage
     image: storage
-    container_name: storage
+    container_name: snap_storage
     restart: unless-stopped
     ports:
       - "30062:8080"
