@@ -15,23 +15,23 @@ import (
 	"gateway/svc"
 )
 
-var _ svc.TransferApi = (*ClientTransfer)(nil)
+var _ svc.TransferV2Api = (*ClientTransferV2)(nil)
 
-type ClientTransfer struct {
-	posttransferinterbank endpoint.Endpoint
-	posttransferintrabank endpoint.Endpoint
-	postpaymenthosttohost endpoint.Endpoint
-	posttransferstatus    endpoint.Endpoint
+type ClientTransferV2 struct {
+	posttransferinterbankv2 endpoint.Endpoint
+	posttransferintrabankv2 endpoint.Endpoint
+	postpaymenthosttohostv2 endpoint.Endpoint
+	posttransferstatusv2    endpoint.Endpoint
 }
 
-func (c *ClientTransfer) PostTransferInterBank(ctx context.Context, params interface{}) (interface{}, error) {
+func (c *ClientTransferV2) PostTransferInterBankV2(ctx context.Context, params interface{}) (interface{}, error) {
 	md := metadata.New(map[string]string{})
 	data := params.(map[string]interface{})
 	md.Append(data["header"].(string))
 	md.Append(data["path"].(string))
 	metadata.NewOutgoingContext(ctx, md)
 
-	rsp, err := c.posttransferinterbank(ctx, params)
+	rsp, err := c.posttransferinterbankv2(ctx, params)
 	if err != nil {
 		return nil, err
 	}
@@ -39,14 +39,14 @@ func (c *ClientTransfer) PostTransferInterBank(ctx context.Context, params inter
 	return rsp, nil
 }
 
-func (c *ClientTransfer) PostTransferIntraBank(ctx context.Context, params interface{}) (interface{}, error) {
+func (c *ClientTransferV2) PostTransferIntraBankV2(ctx context.Context, params interface{}) (interface{}, error) {
 	md := metadata.New(map[string]string{})
 	data := params.(map[string]interface{})
 	md.Append(data["header"].(string))
 	md.Append(data["path"].(string))
 	metadata.NewOutgoingContext(ctx, md)
 
-	rsp, err := c.posttransferintrabank(ctx, params)
+	rsp, err := c.posttransferintrabankv2(ctx, params)
 	if err != nil {
 		return nil, err
 	}
@@ -54,14 +54,14 @@ func (c *ClientTransfer) PostTransferIntraBank(ctx context.Context, params inter
 	return rsp, nil
 }
 
-func (c *ClientTransfer) PostPaymentHostToHost(ctx context.Context, params interface{}) (interface{}, error) {
+func (c *ClientTransferV2) PostPaymentHostToHostV2(ctx context.Context, params interface{}) (interface{}, error) {
 	md := metadata.New(map[string]string{})
 	data := params.(map[string]interface{})
 	md.Append(data["header"].(string))
 	md.Append(data["path"].(string))
 	metadata.NewOutgoingContext(ctx, md)
 
-	rsp, err := c.postpaymenthosttohost(ctx, params)
+	rsp, err := c.postpaymenthosttohostv2(ctx, params)
 	if err != nil {
 		return nil, err
 	}
@@ -69,14 +69,14 @@ func (c *ClientTransfer) PostPaymentHostToHost(ctx context.Context, params inter
 	return rsp, nil
 }
 
-func (c *ClientTransfer) PostTransferStatus(ctx context.Context, params interface{}) (interface{}, error) {
+func (c *ClientTransferV2) PostTransferStatusV2(ctx context.Context, params interface{}) (interface{}, error) {
 	md := metadata.New(map[string]string{})
 	data := params.(map[string]interface{})
 	md.Append(data["header"].(string))
 	md.Append(data["path"].(string))
 	metadata.NewOutgoingContext(ctx, md)
 
-	rsp, err := c.PostTransferStatus(ctx, params)
+	rsp, err := c.posttransferstatusv2(ctx, params)
 	if err != nil {
 		return nil, err
 	}
@@ -84,57 +84,57 @@ func (c *ClientTransfer) PostTransferStatus(ctx context.Context, params interfac
 	return rsp, nil
 }
 
-func NewTransferClient(instancer sd.Instancer, logger log.Logger) *ClientTransfer {
-	c := &ClientTransfer{}
+func NewTransferV2Client(instancer sd.Instancer, logger log.Logger) *ClientTransferV2 {
+	c := &ClientTransferV2{}
 	var options []grpctransport.ClientOption
 	options = append(options)
 
-	c.posttransferinterbank = GRPCClientEndpoint(logger, instancer, func(conn *grpc.ClientConn) (endpoint.Endpoint, string) {
+	c.posttransferinterbankv2 = GRPCClientEndpoint(logger, instancer, func(conn *grpc.ClientConn) (endpoint.Endpoint, string) {
 		return grpctransport.NewClient(
 			conn,
-			"Transfer",
-			"PostTransferInterBank",
+			"TransferV2",
+			"PostTransferInterBankV2",
 			encodeTransferInterBankRequest,
 			decodeTransferInterBankResponse,
 			transfer.TransferInterBankResponse{},
 			options...,
-		).Endpoint(), "Transfer().PostBalanceInquiry"
+		).Endpoint(), "TransferV2().PostBalanceInquiryV2"
 	})
 
-	c.posttransferintrabank = GRPCClientEndpoint(logger, instancer, func(conn *grpc.ClientConn) (endpoint.Endpoint, string) {
+	c.posttransferintrabankv2 = GRPCClientEndpoint(logger, instancer, func(conn *grpc.ClientConn) (endpoint.Endpoint, string) {
 		return grpctransport.NewClient(
 			conn,
-			"Transfer",
-			"PostTransferIntraBank",
+			"TransferV2",
+			"PostTransferIntraBankV2",
 			encodeTransferIntraBankRequest,
 			decodeTransferIntraBankResponse,
 			transfer.TransferIntraBankResponse{},
 			options...,
-		).Endpoint(), "Transfer().PostExternalAccountInquiry"
+		).Endpoint(), "TransferV2().PostExternalAccountInquiryV2"
 	})
 
-	c.postpaymenthosttohost = GRPCClientEndpoint(logger, instancer, func(conn *grpc.ClientConn) (endpoint.Endpoint, string) {
+	c.postpaymenthosttohostv2 = GRPCClientEndpoint(logger, instancer, func(conn *grpc.ClientConn) (endpoint.Endpoint, string) {
 		return grpctransport.NewClient(
 			conn,
-			"Transfer",
-			"PostPaymentHostToHost",
+			"TransferV2",
+			"PostPaymentHostToHostV2",
 			encodePaymentHostToHostRequest,
 			decodePaymentHostToHostResponse,
 			transfer.TransferPaymentHostoHostResponse{},
 			options...,
-		).Endpoint(), "Transfer().PostPaymentHostToHost"
+		).Endpoint(), "TransferV2().PostPaymentHostToHostV2"
 	})
 
-	c.posttransferstatus = GRPCClientEndpoint(logger, instancer, func(conn *grpc.ClientConn) (endpoint.Endpoint, string) {
+	c.posttransferstatusv2 = GRPCClientEndpoint(logger, instancer, func(conn *grpc.ClientConn) (endpoint.Endpoint, string) {
 		return grpctransport.NewClient(
 			conn,
-			"Transfer",
-			"PostTransferStatus",
+			"TransferV2",
+			"PostTransferStatusV2",
 			encodeTransferStatusRequest,
 			decodeTransferStatusResponse,
 			transfer.TransferStatusResponse{},
 			options...,
-		).Endpoint(), "Transfer().PostInternalAccountInquiry"
+		).Endpoint(), "TransferV2().PostInternalAccountInquiryV2"
 	})
 
 	return c

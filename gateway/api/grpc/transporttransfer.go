@@ -59,6 +59,30 @@ func decodeTransferIntraBankResponse(_ context.Context, response interface{}) (i
 	return reply, nil
 }
 
+func encodePaymentHostToHostRequest(_ context.Context, request interface{}) (interface{}, error) {
+	//var err error
+	var logger log.Logger
+	{
+		logger = log.NewLogfmtLogger(os.Stderr)
+		logger = log.With(logger, "ts", log.DefaultTimestampUTC)
+		logger = log.With(logger, "caller", log.DefaultCaller)
+	}
+
+	dreq := &transfer.TransferPaymentHostoHostRequest{}
+
+	drequ := request.(map[string]interface{})
+	json.Unmarshal(drequ["body"].([]byte), dreq)
+
+	level.Info(logger).Log("encodePaymentHostToHostRequest", "Masuk encodePaymentHostToHostRequest")
+
+	return dreq, nil
+}
+
+func decodePaymentHostToHostResponse(_ context.Context, response interface{}) (interface{}, error) {
+	reply := response.(*transfer.TransferPaymentHostoHostResponse)
+	return reply, nil
+}
+
 func encodeTransferStatusRequest(_ context.Context, request interface{}) (interface{}, error) {
 	//var err error
 	var logger log.Logger

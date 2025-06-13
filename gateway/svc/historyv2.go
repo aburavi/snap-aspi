@@ -5,6 +5,6 @@ import (
 )
 
 type HistoryV2Api interface {
-	GetTransactionHistoryDetail(ctx context.Context, params interface{}) (interface{}, error)
-	GetTransactionHistoryList(ctx context.Context, params interface{}) (interface{}, error)
+	GetTransactionHistoryDetailV2(ctx context.Context, params interface{}) (interface{}, error)
+	GetTransactionHistoryListV2(ctx context.Context, params interface{}) (interface{}, error)
 }

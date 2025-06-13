@@ -145,17 +145,17 @@ func main() {
 
 	{
 		inquiryv2instance := []string{*rpcinquiryv2Instance}
-		inquiryv2svc = clientgrpc.NewInquiryClient(sd.FixedInstancer(inquiryv2instance), logger)
+		inquiryv2svc = clientgrpc.NewInquiryV2Client(sd.FixedInstancer(inquiryv2instance), logger)
 	}
 
 	{
 		historyv2instance := []string{*rpchistoryv2Instance}
-		historyv2svc = clientgrpc.NewHistoryClient(sd.FixedInstancer(historyv2instance), logger)
+		historyv2svc = clientgrpc.NewHistoryV2Client(sd.FixedInstancer(historyv2instance), logger)
 	}
 
 	{
 		transferv2instance := []string{*rpctransferv2Instance}
-		transferv2svc = clientgrpc.NewTransferClient(sd.FixedInstancer(transferv2instance), logger)
+		transferv2svc = clientgrpc.NewTransferV2Client(sd.FixedInstancer(transferv2instance), logger)
 	}
 
 	svc := svc.NewService(authsvc, signaturesvc, inquirysvc, historysvc, transfersvc, inquiryv2svc, historyv2svc, transferv2svc)

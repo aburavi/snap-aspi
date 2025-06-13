@@ -3,8 +3,8 @@
 
 SITE_TITLE=STORAGE-API
 
-HOST=localhost
-PORT=30062
+HOST=snap_storage.snap-aspi
+PORT=8080
 TYPE=sandbox
 REDIS_SERVER=redis.snap-aspi
 REDISPASS=

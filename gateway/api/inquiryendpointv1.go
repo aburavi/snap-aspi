@@ -29,7 +29,7 @@ func MakeGetBalanceInquiryEndpoint(s svc.Service, logger log.Logger, tracer trac
 
 		dreq := request.(map[string]interface{})
 		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostAuthSignature(tracerCtx, dreq)
+		v, err := s.Inquiry().PostBalanceInquiry (tracerCtx, dreq)
 		if err != nil {
 			if retryErr, ok := err.(lb.RetryError); ok {
 				return nil, retryErr.Final
@@ -37,7 +37,7 @@ func MakeGetBalanceInquiryEndpoint(s svc.Service, logger log.Logger, tracer trac
 			return nil, err
 		}
 
-		level.Info(logger).Log("Success PostAuthSignature", fmt.Sprintf("%v", v))
+		level.Info(logger).Log("Success GetBalanceInquiry", fmt.Sprintf("%v", v))
 		return v, nil
 	}
 }
@@ -53,7 +53,7 @@ func MakeGetAccountInquiryInternalEndpoint(s svc.Service, logger log.Logger, tra
 
 		dreq := request.(map[string]interface{})
 		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostTrxSignature(tracerCtx, dreq)
+		v, err := s.Inquiry().PostInternalAccountInquiry(tracerCtx, dreq)
 		if err != nil {
 			if retryErr, ok := err.(lb.RetryError); ok {
 				return nil, retryErr.Final
@@ -61,7 +61,7 @@ func MakeGetAccountInquiryInternalEndpoint(s svc.Service, logger log.Logger, tra
 			return nil, err
 		}
 
-		level.Info(logger).Log("Success PostTrxSignature", fmt.Sprintf("%v", v))
+		level.Info(logger).Log("Success GetAccountInquiryInternal", fmt.Sprintf("%v", v))
 		return v, nil
 	}
 }
@@ -77,7 +77,7 @@ func MakeGetAccountInquiryExternalEndpoint(s svc.Service, logger log.Logger, tra
 
 		dreq := request.(map[string]interface{})
 		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostTrxSignature(tracerCtx, dreq)
+		v, err := s.Inquiry().PostExternalAccountInquiry(tracerCtx, dreq)
 		if err != nil {
 			if retryErr, ok := err.(lb.RetryError); ok {
 				return nil, retryErr.Final
@@ -85,32 +85,7 @@ func MakeGetAccountInquiryExternalEndpoint(s svc.Service, logger log.Logger, tra
 			return nil, err
 		}
 
-		level.Info(logger).Log("Success PostTrxSignature", fmt.Sprintf("%v", v))
-		return v, nil
-	}
-
-}
-
-func MakeGetDebitInquiryEndpoint(s svc.Service, logger log.Logger, tracer trace.Tracer, metrics utils.MetricsMiddleware) endpoint.Endpoint {
-	return func(ctx context.Context, request interface{}) (reponse interface{}, err error) {
-		const op utils.Op = "Http/GetDebitInquiry"
-		// start tracing
-		tracerCtx, span := tracer.Start(ctx, string(op))
-		defer span.End()
-		metrics.MetricsRequestLatency(string(op))
-		metrics.MetricsHttpDuration(string(op))
-
-		dreq := request.(map[string]interface{})
-		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostTrxSignature(tracerCtx, dreq)
-		if err != nil {
-			if retryErr, ok := err.(lb.RetryError); ok {
-				return nil, retryErr.Final
-			}
-			return nil, err
-		}
-
-		level.Info(logger).Log("Success PostTrxSignature", fmt.Sprintf("%v", v))
+		level.Info(logger).Log("Success GetAccountInquiryExternal", fmt.Sprintf("%v", v))
 		return v, nil
 	}
 

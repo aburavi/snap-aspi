@@ -18,7 +18,7 @@ import (
 )
 
 // Onboarding Endpoint
-func MakeTransferIntraBankEndpoint(s svc.Service, logger log.Logger, tracer trace.Tracer, metrics utils.MetricsMiddleware) endpoint.Endpoint {
+func MakeTransferIntraBankV2Endpoint(s svc.Service, logger log.Logger, tracer trace.Tracer, metrics utils.MetricsMiddleware) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (reponse interface{}, err error) {
 		const op utils.Op = "Http/TransferIntraBank"
 		// start tracing
@@ -29,7 +29,7 @@ func MakeTransferIntraBankEndpoint(s svc.Service, logger log.Logger, tracer trac
 
 		dreq := request.(map[string]interface{})
 		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostAuthSignature(tracerCtx, dreq)
+		v, err := s.Transferv2().PostTransferIntraBankV2(tracerCtx, dreq)
 		if err != nil {
 			if retryErr, ok := err.(lb.RetryError); ok {
 				return nil, retryErr.Final
@@ -37,12 +37,12 @@ func MakeTransferIntraBankEndpoint(s svc.Service, logger log.Logger, tracer trac
 			return nil, err
 		}
 
-		level.Info(logger).Log("Success PostAuthSignature", fmt.Sprintf("%v", v))
+		level.Info(logger).Log("Success TransferIntraBank", fmt.Sprintf("%v", v))
 		return v, nil
 	}
 }
 
-func MakeTransferInterBankEndpoint(s svc.Service, logger log.Logger, tracer trace.Tracer, metrics utils.MetricsMiddleware) endpoint.Endpoint {
+func MakeTransferInterBankV2Endpoint(s svc.Service, logger log.Logger, tracer trace.Tracer, metrics utils.MetricsMiddleware) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (reponse interface{}, err error) {
 		const op utils.Op = "Http/TransferInterBank"
 		// start tracing
@@ -53,7 +53,7 @@ func MakeTransferInterBankEndpoint(s svc.Service, logger log.Logger, tracer trac
 
 		dreq := request.(map[string]interface{})
 		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostTrxSignature(tracerCtx, dreq)
+		v, err := s.Transferv2().PostTransferInterBankV2(tracerCtx, dreq)
 		if err != nil {
 			if retryErr, ok := err.(lb.RetryError); ok {
 				return nil, retryErr.Final
@@ -61,14 +61,14 @@ func MakeTransferInterBankEndpoint(s svc.Service, logger log.Logger, tracer trac
 			return nil, err
 		}
 
-		level.Info(logger).Log("Success PostTrxSignature", fmt.Sprintf("%v", v))
+		level.Info(logger).Log("Success TransferInterBank", fmt.Sprintf("%v", v))
 		return v, nil
 	}
 }
 
-func MakePaymentHosttoHostEndpoint(s svc.Service, logger log.Logger, tracer trace.Tracer, metrics utils.MetricsMiddleware) endpoint.Endpoint {
+func MakePaymentHosttoHostV2Endpoint(s svc.Service, logger log.Logger, tracer trace.Tracer, metrics utils.MetricsMiddleware) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (reponse interface{}, err error) {
-		const op utils.Op = "Http/PostTrxPaymentHosttoHostSignature"
+		const op utils.Op = "Http/PostTrxPaymentHosttoHost"
 		// start tracing
 		tracerCtx, span := tracer.Start(ctx, string(op))
 		defer span.End()
@@ -77,7 +77,7 @@ func MakePaymentHosttoHostEndpoint(s svc.Service, logger log.Logger, tracer trac
 
 		dreq := request.(map[string]interface{})
 		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostTrxSignature(tracerCtx, dreq)
+		v, err := s.Transferv2().PostPaymentHostToHostV2(tracerCtx, dreq)
 		if err != nil {
 			if retryErr, ok := err.(lb.RetryError); ok {
 				return nil, retryErr.Final
@@ -85,15 +85,15 @@ func MakePaymentHosttoHostEndpoint(s svc.Service, logger log.Logger, tracer trac
 			return nil, err
 		}
 
-		level.Info(logger).Log("Success PostTrxSignature", fmt.Sprintf("%v", v))
+		level.Info(logger).Log("Success PostTrxPaymentHosttoHost", fmt.Sprintf("%v", v))
 		return v, nil
 	}
 
 }
 
-func MakeGetTransferStatusEndpoint(s svc.Service, logger log.Logger, tracer trace.Tracer, metrics utils.MetricsMiddleware) endpoint.Endpoint {
+func MakeGetTransferStatusV2Endpoint(s svc.Service, logger log.Logger, tracer trace.Tracer, metrics utils.MetricsMiddleware) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (reponse interface{}, err error) {
-		const op utils.Op = "Http/GetTransferStatus"
+		const op utils.Op = "Http/PostTransferStatusV2"
 		// start tracing
 		tracerCtx, span := tracer.Start(ctx, string(op))
 		defer span.End()
@@ -102,7 +102,7 @@ func MakeGetTransferStatusEndpoint(s svc.Service, logger log.Logger, tracer trac
 
 		dreq := request.(map[string]interface{})
 		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostAuthSignature(tracerCtx, dreq)
+		v, err := s.Transferv2().PostTransferStatusV2(tracerCtx, dreq)
 		if err != nil {
 			if retryErr, ok := err.(lb.RetryError); ok {
 				return nil, retryErr.Final
@@ -110,7 +110,7 @@ func MakeGetTransferStatusEndpoint(s svc.Service, logger log.Logger, tracer trac
 			return nil, err
 		}
 
-		level.Info(logger).Log("Success PostAuthSignature", fmt.Sprintf("%v", v))
+		level.Info(logger).Log("Success PostTransferStatusV2", fmt.Sprintf("%v", v))
 		return v, nil
 	}
 }

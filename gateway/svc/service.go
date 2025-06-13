@@ -64,9 +64,9 @@ func NewService(authsvc AuthApi,
 	inquirysvc InquiryApi,
 	historysvc HistoryApi,
 	transfersvc TransferApi,
-	inquiryv2svc InquiryApi,
-	historyv2svc HistoryApi,
-	transferv2svc TransferApi) Service {
+	inquiryv2svc InquiryV2Api,
+	historyv2svc HistoryV2Api,
+	transferv2svc TransferV2Api) Service {
 	return &service{authsvc,
 		signaturesvc,
 		inquirysvc,

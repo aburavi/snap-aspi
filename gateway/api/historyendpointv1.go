@@ -29,7 +29,7 @@ func MakeGetTransactionHistoryListEndpoint(s svc.Service, logger log.Logger, tra
 
 		dreq := request.(map[string]interface{})
 		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostAuthSignature(tracerCtx, dreq)
+		v, err := s.History().GetTransactionHistoryList(tracerCtx, dreq)
 		if err != nil {
 			if retryErr, ok := err.(lb.RetryError); ok {
 				return nil, retryErr.Final
@@ -37,7 +37,7 @@ func MakeGetTransactionHistoryListEndpoint(s svc.Service, logger log.Logger, tra
 			return nil, err
 		}
 
-		level.Info(logger).Log("Success PostAuthSignature", fmt.Sprintf("%v", v))
+		level.Info(logger).Log("Success GetTransactionHistoryList", fmt.Sprintf("%v", v))
 		return v, nil
 	}
 }
@@ -53,7 +53,7 @@ func MakeGetTransactionHistoryDetailEndpoint(s svc.Service, logger log.Logger, t
 
 		dreq := request.(map[string]interface{})
 		level.Info(logger).Log("rpcname", dreq["rpcName"].(string))
-		v, err := s.Signature().PostTrxSignature(tracerCtx, dreq)
+		v, err := s.History().GetTransactionHistoryDetail(tracerCtx, dreq)
 		if err != nil {
 			if retryErr, ok := err.(lb.RetryError); ok {
 				return nil, retryErr.Final
@@ -61,7 +61,7 @@ func MakeGetTransactionHistoryDetailEndpoint(s svc.Service, logger log.Logger, t
 			return nil, err
 		}
 
-		level.Info(logger).Log("Success PostTrxSignature", fmt.Sprintf("%v", v))
+		level.Info(logger).Log("Success GetTransactionHistoryDetail", fmt.Sprintf("%v", v))
 		return v, nil
 	}
 }

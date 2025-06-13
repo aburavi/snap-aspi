@@ -22,7 +22,7 @@ func main() {
 	}
 
 	//Host := viper.GetString("HOST")
-	Port := viper.GetString("PORT")
+	Port := viper.GetInt("PORT")
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", Port))
 	if err != nil {

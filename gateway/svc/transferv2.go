@@ -5,7 +5,8 @@ import (
 )
 
 type TransferV2Api interface {
-	PostTransferInterBank(ctx context.Context, params interface{}) (interface{}, error)
-	PostTransferIntraBank(ctx context.Context, params interface{}) (interface{}, error)
-	PostTransferStatus(ctx context.Context, params interface{}) (interface{}, error)
+	PostTransferInterBankV2(ctx context.Context, params interface{}) (interface{}, error)
+	PostTransferIntraBankV2(ctx context.Context, params interface{}) (interface{}, error)
+	PostPaymentHostToHostV2(ctx context.Context, params interface{}) (interface{}, error)
+	PostTransferStatusV2(ctx context.Context, params interface{}) (interface{}, error)
 }

@@ -3,9 +3,9 @@
 
 SITE_TITLE=RATELIMITER-API
 
-HOST=localhost
+HOST=snap_ratelimiter.snap-aspi
 TYPE=sandbox
 REDIS_SERVER=redis.snap-aspi
 REDIS_PORT=6379
 REDISPASS=""
-PORT_RATELIMITER=30061
+PORT=8080
